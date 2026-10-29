@@ -16,7 +16,6 @@
   aside.notes { display: none; }
   body.show-notes aside.notes { display: block; position: absolute; left: 0; right: 0; bottom: 0; padding: 24px 128px;
             background: rgba(0,0,0,.85); color: #efe2d6; font-size: 26px; line-height: 1.5; }
-  #hint { position: fixed; right: 12px; bottom: 8px; font: 12px system-ui, sans-serif; color: #8a7c74; }
 </style>
 </head>
 <body>
@@ -299,7 +298,6 @@
 
 
 </div>
-<div id="hint">← → or click to move · N for speaker notes · F for full screen</div>
 <script>
   const slides = [...document.querySelectorAll('section')];
   let i = Math.max(0, slides.findIndex(s => '#' + s.id === location.hash));
