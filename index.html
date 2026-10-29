@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stranger Things in Production</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,900;1,400&display=swap">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; background: #070303; overflow: hidden; }
+  #stage { position: absolute; left: 50%; top: 50%; width: 1920px; height: 1080px; transform-origin: center; }
+  section { position: absolute; inset: 0; width: 1920px; height: 1080px; color: #efe2d6;
+            font-family: Merriweather, Georgia, serif; opacity: 0; pointer-events: none; transition: opacity .4s; overflow: hidden; }
+  section.active { opacity: 1; pointer-events: auto; }
+  ul { padding-left: 1.2em; }
+  aside.notes { display: none; }
+  body.show-notes aside.notes { display: block; position: absolute; left: 0; right: 0; bottom: 0; padding: 24px 128px;
+            background: rgba(0,0,0,.85); color: #efe2d6; font-size: 26px; line-height: 1.5; }
+  #hint { position: fixed; right: 12px; bottom: 8px; font: 12px system-ui, sans-serif; color: #8a7c74; }
+</style>
+</head>
+<body>
+<div id="stage">
+<section id="cover" style="display:flex; flex-direction:column; gap:28px; align-items:center; justify-content:center; padding:128px 128px 160px; background:radial-gradient(ellipse at 50% 48%, #2c0808 0%, #120505 55%, #070303 100%)">
+  <svg xmlns="http://www.w3.org/2000/svg" aria-label="A string of coloured Christmas lights, one bulb dark" viewBox="0 0 1664 110" style="position:absolute; top:56px; left:128px; width:1664px; height:110px"><defs><filter id="g" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="9"/></filter></defs><path d="M0,20 Q140,70 280,20 T560,20 T840,20 T1120,20 T1400,20 T1664,24" fill="none" stroke="#2a2420" stroke-width="3"/><g><circle cx="140" cy="70" r="26" fill="#ff3b2f" opacity="0.55" filter="url(#g)"/><rect x="134" y="44" width="12" height="10" rx="2" fill="#2a2420"/><ellipse cx="140" cy="70" rx="10" ry="15" fill="#ff5a4a"/></g><g><circle cx="280" cy="45" r="26" fill="#ffcf3a" opacity="0.55" filter="url(#g)"/><rect x="274" y="19" width="12" height="10" rx="2" fill="#2a2420"/><ellipse cx="280" cy="45" rx="10" ry="15" fill="#ffd95e"/></g><g><circle cx="420" cy="70" r="26" fill="#3ad16b" opacity="0.55" filter="url(#g)"/><rect x="414" y="44" width="12" height="10" rx="2" fill="#2a2420"/><ellipse cx="420" cy="70" rx="10" ry="15" fill="#5ee08a"/></g><g><circle cx="560" cy="45" r="26" fill="#3a8bff" opacity="0.55" filter="url(#g)"/><rect x="554" y="19" width="12" height="10" rx="2" fill="#2a2420"/><ellipse cx="560" cy="45" rx="10" ry="15" fill="#6aa8ff"/></g><g><circle cx="700" cy="70" r="26" fill="#ff7ac8" opacity="0.55" filter="url(#g)"/><rect x="694" y="44" width="12" height="10" rx="2" fill="#2a2420"/><ellipse cx="700" cy="70" rx="10" ry="15" fill="#ff9ad6"/></g><g><circle cx="840" cy="45" r="26" fill="#ff3b2f" opacity="0.55" filter="url(#g)"/><rect x="834" y="19" width="12" height="10" rx="2" fill="#2a2420"/><ellipse cx="840" cy="45" rx="10" ry="15" fill="#ff5a4a"/></g><g><rect x="974" y="44" width="12" height="10" rx="2" fill="#2a2420"/><ellipse cx="980" cy="70" rx="10" ry="15" fill="#3a3030"/></g><g><circle cx="1120" cy="45" r="26" fill="#3ad16b" opacity="0.55" filter="url(#g)"/><rect x="1114" y="19" width="12" height="10" rx="2" fill="#2a2420"/><ellipse cx="1120" cy="45" rx="10" ry="15" fill="#5ee08a"/></g><g><circle cx="1260" cy="70" r="26" fill="#3a8bff" opacity="0.55" filter="url(#g)"/><rect x="1254" y="44" width="12" height="10" rx="2" fill="#2a2420"/><ellipse cx="1260" cy="70" rx="10" ry="15" fill="#6aa8ff"/></g><g><circle cx="1400" cy="45" r="26" fill="#ffcf3a" opacity="0.55" filter="url(#g)"/><rect x="1394" y="19" width="12" height="10" rx="2" fill="#2a2420"/><ellipse cx="1400" cy="45" rx="10" ry="15" fill="#ffd95e"/></g><g><circle cx="1540" cy="70" r="26" fill="#ff7ac8" opacity="0.55" filter="url(#g)"/><rect x="1534" y="44" width="12" height="10" rx="2" fill="#2a2420"/><ellipse cx="1540" cy="70" rx="10" ry="15" fill="#ff9ad6"/></g></svg>
+  <div style="width:1180px; height:6px; display:flex; flex-direction:column; background:#e8262b; box-shadow:0 0 18px #e8262bd9">
+  </div>
+  <h1 style="font-family:Merriweather, Georgia, serif; font-size:124px; font-weight:900; line-height:1.1; letter-spacing:6px; text-align:center; white-space:nowrap; -webkit-text-stroke:3px #e8262b; color:#160505; text-shadow:0 0 16px #e8262be6, 0 0 48px #e8262b8c">STRANGER THINGS</h1>
+  <h2 style="font-family:Merriweather, Georgia, serif; font-size:64px; font-weight:900; line-height:1.1; letter-spacing:18px; text-align:center; white-space:nowrap; -webkit-text-stroke:2px #e8262b; color:#160505; text-shadow:0 0 12px #e8262bd9, 0 0 32px #e8262b80">IN PRODUCTION</h2>
+  <div style="width:1180px; height:6px; display:flex; flex-direction:column; background:#e8262b; box-shadow:0 0 18px #e8262bd9">
+  </div>
+  <p style="padding:32px 0 0; font-family:Merriweather, Georgia, serif; font-size:52px; font-weight:400; font-style:italic; line-height:1.3; text-align:center; color:#efe2d6; text-shadow:0 0 20px #e8262b59">Should I Stay or Should I Roll Back?</p>
+  <p style="position:absolute; bottom:64px; left:128px; width:1664px; font-family:Merriweather, Georgia, serif; font-size:20px; letter-spacing:3px; text-align:center; text-transform:uppercase; color:#a3948b">linkedin.com/in/madhavi-swamy</p>
+  <aside class="notes">Speech in the separate speech file.</aside>
+</section>
+
+<section id="motivation" data-transition="fade" style="background:radial-gradient(ellipse at 50% 0%, #1f0909 0%, #0e0606 60%);color:#efe2d6;font-family:Merriweather, Georgia, serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:56px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;letter-spacing:8px;text-transform:uppercase;color:#e8262b">A short history</p>
+<h2 style="font-size:72px;font-weight:900;line-height:1.15;color:#160505;-webkit-text-stroke:2px #e8262b;text-shadow:0 0 12px rgba(232,38,43,0.8), 0 0 32px rgba(232,38,43,0.45)">Vibe coding, and me</h2>
+</div>
+<div style="display:flex;flex-direction:row;align-items:center;gap:20px">
+<div style="display:flex;flex-direction:column;gap:16px;flex:1;padding:40px;background:#1a0b0b;border:2px solid #3d1a1a;border-radius:16px">
+<p style="font-size:26px;letter-spacing:6px;text-transform:uppercase;color:#ff6b5e">Feb 2025</p>
+<h3 style="font-size:44px;font-weight:900;line-height:1.2;color:#f2b33d">Vibe coding gets a name</h3>
+<p style="font-size:30px;line-height:1.4;color:#cdbfb4">Tell the AI what you want in plain words. Go with the vibe.</p>
+</div>
+<div style="width:48px;height:24px;background:#8a7c74;clip-path:polygon(0 30%,60% 30%,60% 0,100% 50%,60% 100%,60% 70%,0 70%);flex-shrink:0"></div>
+<div style="display:flex;flex-direction:column;gap:16px;flex:1;padding:40px;background:#1a0b0b;border:2px solid #3d1a1a;border-radius:16px">
+<p style="font-size:26px;letter-spacing:6px;text-transform:uppercase;color:#ff6b5e">2025 to 2026</p>
+<h3 style="font-size:44px;font-weight:900;line-height:1.2;color:#f2b33d">Everyone joins in</h3>
+<p style="font-size:30px;line-height:1.4;color:#cdbfb4">Apps get built in an afternoon.</p>
+</div>
+<div style="width:48px;height:24px;background:#8a7c74;clip-path:polygon(0 30%,60% 30%,60% 0,100% 50%,60% 100%,60% 70%,0 70%);flex-shrink:0"></div>
+<div style="display:flex;flex-direction:column;gap:16px;flex:1;padding:40px;background:#1a0b0b;border:2px solid #5a4212;border-radius:16px">
+<p style="font-size:26px;letter-spacing:6px;text-transform:uppercase;color:#ff6b5e">Oct 2026</p>
+<h3 style="font-size:44px;font-weight:900;line-height:1.2;color:#f2b33d">Me, arriving late</h3>
+<p style="font-size:30px;line-height:1.4;color:#cdbfb4">I brought a bot, and a production checklist.</p>
+</div>
+</div>
+<p style="font-size:36px;font-style:italic;color:#efe2d6">The right way: vibe code the app, not the safety.</p>
+<div style="position:absolute;left:128px;bottom:64px;width:1664px;display:flex;flex-direction:row;justify-content:space-between">
+<p style="font-size:18px;letter-spacing:3px;text-transform:uppercase;color:#8a7c74">Stranger Things in Production</p>
+<p style="font-size:18px;color:#8a7c74">2</p>
+</div>
+<aside class="notes">Speech in the separate speech file.</aside>
+</section>
+
+<section id="previously" data-transition="fade" style="display:flex; flex-direction:column; gap:48px; padding:128px 128px 160px; background:radial-gradient(ellipse at 50% 0%, #1f0909 0%, #0e0606 60%)">
+  <div style="display:flex; flex-direction:column; gap:16px">
+    <p style="font-family:Merriweather, Georgia, serif; font-size:28px; letter-spacing:8px; text-transform:uppercase; color:#e8262b">Previously on…</p>
+    <h2 style="font-family:Merriweather, Georgia, serif; font-size:72px; font-weight:900; line-height:1.15; -webkit-text-stroke:2px #e8262b; color:#160505; text-shadow:0 0 12px #e8262bcc, 0 0 32px #e8262b73">So I built a bot for it</h2>
+  </div>
+  <div style="display:flex; flex-direction:row; gap:40px">
+    <div style="display:flex; flex-direction:column; gap:16px; flex:1; padding:40px; background:#1a0b0b; border:2px solid #3d1a1a; border-radius:16px">
+      <h3 style="font-family:Merriweather, Georgia, serif; font-size:44px; font-weight:900; color:#f2b33d">AstraBot</h3>
+      <p style="font-family:Merriweather, Georgia, serif; font-size:32px; line-height:1.4; color:#cdbfb4">A full AI assistant inside Telegram. No app to install, no account to create.</p>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:16px; flex:1; padding:40px; background:#1a0b0b; border:2px solid #3d1a1a; border-radius:16px">
+      <h3 style="font-family:Merriweather, Georgia, serif; font-size:44px; font-weight:900; color:#f2b33d">Powered by OpenCode</h3>
+      <p style="font-family:Merriweather, Georgia, serif; font-size:32px; line-height:1.4; color:#cdbfb4">An open-source AI agent that does the thinking. Already wired in, so there is nothing for you to set up.</p>
+    </div>
+  </div>
+  <div style="position:absolute; bottom:64px; left:128px; width:1664px; display:flex; flex-direction:row; justify-content:space-between">
+    <p style="font-family:Merriweather, Georgia, serif; font-size:18px; letter-spacing:3px; text-transform:uppercase; color:#8a7c74">Stranger Things in Production</p>
+    <p style="font-family:Merriweather, Georgia, serif; font-size:18px; color:#8a7c74">3</p>
+  </div>
+  <aside class="notes">Speech in the separate speech file.</aside>
+</section>
+
+<section id="chapter-one" data-transition="fade" style="background:radial-gradient(ellipse at 50% 0%, #1f0909 0%, #0e0606 60%);color:#efe2d6;font-family:'Merriweather', Georgia, serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;letter-spacing:8px;text-transform:uppercase;color:#e8262b">Chapter One</p>
+<h2 style="font-size:72px;font-weight:900;line-height:1.15;color:#160505;-webkit-text-stroke:2px #e8262b;text-shadow:0 0 12px rgba(232,38,43,0.8), 0 0 32px rgba(232,38,43,0.45)">The Upside Down</h2>
+<p style="font-size:32px;line-height:1.4;color:#cdbfb4">Like flatmates sharing one room: everyone on my laptop shared one space, and sessions collided.</p>
+</div>
+<div style="display:flex;flex-direction:row;gap:40px">
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:20px;background:#1a0b0b;border:2px solid #5a1a1a;border-radius:16px;padding:40px">
+<p style="font-size:24px;letter-spacing:6px;text-transform:uppercase;color:#ff6b5e">Before</p>
+<div style="display:flex;flex-direction:row;gap:16px">
+<p style="font-size:26px;color:#efe2d6;background:#2a1212;padding:8px 24px;border-radius:999px">User A</p>
+<p style="font-size:26px;color:#efe2d6;background:#2a1212;padding:8px 24px;border-radius:999px">User B</p>
+<p style="font-size:26px;color:#efe2d6;background:#2a1212;padding:8px 24px;border-radius:999px">User C</p>
+</div>
+<div style="width:32px;height:56px;background:#8a7c74;clip-path:polygon(30% 0,70% 0,70% 60%,100% 60%,50% 100%,0 60%,30% 60%);flex-shrink:0"></div>
+<p style="font-size:30px;line-height:1.3;text-align:center;color:#efe2d6;padding:24px 32px;border:2px dashed #e8262b;border-radius:12px">One shared OpenCode environment</p>
+<p style="font-size:26px;text-align:center;color:#ff6b5e">Files, processes and memory collide</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:20px;background:#1a0b0b;border:2px solid #5a4212;border-radius:16px;padding:40px">
+<p style="font-size:24px;letter-spacing:6px;text-transform:uppercase;color:#f2b33d">After</p>
+<div style="display:flex;flex-direction:row;gap:24px">
+<div style="display:flex;flex-direction:column;align-items:center;gap:20px">
+<p style="font-size:26px;color:#efe2d6;background:#2a1212;padding:8px 24px;border-radius:999px">User A</p>
+<div style="width:32px;height:56px;background:#8a7c74;clip-path:polygon(30% 0,70% 0,70% 60%,100% 60%,50% 100%,0 60%,30% 60%);flex-shrink:0"></div>
+<p style="font-size:26px;line-height:1.3;text-align:center;color:#efe2d6;padding:16px 20px;border:2px solid #f2b33d;border-radius:12px">Own sandbox</p>
+</div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:20px">
+<p style="font-size:26px;color:#efe2d6;background:#2a1212;padding:8px 24px;border-radius:999px">User B</p>
+<div style="width:32px;height:56px;background:#8a7c74;clip-path:polygon(30% 0,70% 0,70% 60%,100% 60%,50% 100%,0 60%,30% 60%);flex-shrink:0"></div>
+<p style="font-size:26px;line-height:1.3;text-align:center;color:#efe2d6;padding:16px 20px;border:2px solid #f2b33d;border-radius:12px">Own sandbox</p>
+</div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:20px">
+<p style="font-size:26px;color:#efe2d6;background:#2a1212;padding:8px 24px;border-radius:999px">User C</p>
+<div style="width:32px;height:56px;background:#8a7c74;clip-path:polygon(30% 0,70% 0,70% 60%,100% 60%,50% 100%,0 60%,30% 60%);flex-shrink:0"></div>
+<p style="font-size:26px;line-height:1.3;text-align:center;color:#efe2d6;padding:16px 20px;border:2px solid #f2b33d;border-radius:12px">Own sandbox</p>
+</div>
+</div>
+<p style="font-size:26px;text-align:center;color:#f2b33d">Cleared away after 15 idle minutes</p>
+</div>
+</div>
+<p style="font-size:30px;font-style:italic;color:#cdbfb4">The agent can run commands, so folder permissions were not enough.</p>
+<div style="position:absolute;left:128px;bottom:64px;width:1664px;display:flex;flex-direction:row;justify-content:space-between">
+<p style="font-size:18px;letter-spacing:4px;text-transform:uppercase;color:#8a7c74">Stranger Things in Production</p>
+<p style="font-size:18px;color:#8a7c74">4</p>
+</div>
+<aside class="notes">Speech in the separate speech file.</aside>
+</section>
+
+<section id="security" data-transition="fade" style="background:radial-gradient(ellipse at 50% 0%, #1f0909 0%, #0e0606 60%);color:#efe2d6;font-family:'Merriweather', Georgia, serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:48px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;letter-spacing:8px;text-transform:uppercase;color:#e8262b">Chapter Two</p>
+<h2 style="font-size:72px;font-weight:900;line-height:1.15;color:#160505;-webkit-text-stroke:2px #e8262b;text-shadow:0 0 12px rgba(232,38,43,0.8), 0 0 32px rgba(232,38,43,0.45)">The Gate Is Open</h2>
+<p style="font-size:32px;line-height:1.4;color:#cdbfb4">Anyone on Telegram can message the bot, and the bot can run commands.</p>
+</div>
+<div style="display:flex;flex-direction:row;gap:40px">
+<div style="flex:1;display:flex;flex-direction:column;gap:24px;background:#1a0b0b;border:2px solid #5a1a1a;border-radius:16px;padding:40px">
+<h3 style="font-size:36px;font-weight:900;color:#ff6b5e">The risk</h3>
+<ul style="font-size:30px;line-height:1.6;color:#efe2d6">
+<li>The bot is public</li>
+<li>The AI can run commands</li>
+<li>A tricked AI could reach my server</li>
+</ul>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:24px;background:#1a0b0b;border:2px solid #5a4212;border-radius:16px;padding:40px">
+<h3 style="font-size:36px;font-weight:900;color:#f2b33d">What I locked down</h3>
+<ul style="font-size:30px;line-height:1.6;color:#efe2d6">
+<li>One sandbox per user</li>
+<li>Files are read-only</li>
+<li>Memory is capped</li>
+<li>Server logins need a key, not a password</li>
+</ul>
+</div>
+</div>
+<div style="position:absolute;left:128px;bottom:64px;width:1664px;display:flex;flex-direction:row;justify-content:space-between">
+<p style="font-size:18px;letter-spacing:4px;text-transform:uppercase;color:#8a7c74">Stranger Things in Production</p>
+<p style="font-size:18px;color:#8a7c74">5</p>
+</div>
+<aside class="notes">Speech in the separate speech file.</aside>
+</section>
+
+<section id="chapter-three" data-transition="fade" style="background:radial-gradient(ellipse at 50% 0%, #1f0909 0%, #0e0606 60%);color:#efe2d6;font-family:'Merriweather', Georgia, serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;letter-spacing:8px;text-transform:uppercase;color:#e8262b">Chapter Three</p>
+<h2 style="font-size:72px;font-weight:900;line-height:1.15;color:#160505;-webkit-text-stroke:2px #e8262b;text-shadow:0 0 12px rgba(232,38,43,0.8), 0 0 32px rgba(232,38,43,0.45)">The Key Under the Mat</h2>
+<p style="font-size:32px;line-height:1.4;color:#cdbfb4">I pushed the bot’s secret key to GitHub. I had to revoke it.</p>
+</div>
+<div style="display:flex;flex-direction:row;align-items:center;gap:20px">
+<div style="flex:1;display:flex;flex-direction:column;gap:12px;background:#1a0b0b;border:2px solid #5a4212;border-radius:16px;padding:32px">
+<p style="font-size:24px;letter-spacing:4px;text-transform:uppercase;color:#f2b33d">Step 1</p>
+<h3 style="font-size:32px;font-weight:900;color:#efe2d6">Keep it out of the code</h3>
+<p style="font-size:24px;line-height:1.4;color:#cdbfb4">A locked vault on GitHub (GitHub secrets)</p>
+</div>
+<div style="width:48px;height:24px;background:#8a7c74;clip-path:polygon(0 30%,60% 30%,60% 0,100% 50%,60% 100%,60% 70%,0 70%);flex-shrink:0"></div>
+<div style="flex:1;display:flex;flex-direction:column;gap:12px;background:#1a0b0b;border:2px solid #5a4212;border-radius:16px;padding:32px">
+<p style="font-size:24px;letter-spacing:4px;text-transform:uppercase;color:#f2b33d">Step 2</p>
+<h3 style="font-size:32px;font-weight:900;color:#efe2d6">Hand it over once</h3>
+<p style="font-size:24px;line-height:1.4;color:#cdbfb4">A secure link to the server (SSH)</p>
+</div>
+<div style="width:48px;height:24px;background:#8a7c74;clip-path:polygon(0 30%,60% 30%,60% 0,100% 50%,60% 100%,60% 70%,0 70%);flex-shrink:0"></div>
+<div style="flex:1;display:flex;flex-direction:column;gap:12px;background:#1a0b0b;border:2px solid #5a4212;border-radius:16px;padding:32px">
+<p style="font-size:24px;letter-spacing:4px;text-transform:uppercase;color:#f2b33d">Step 3</p>
+<h3 style="font-size:32px;font-weight:900;color:#efe2d6">Sticky note</h3>
+<p style="font-size:24px;line-height:1.4;color:#cdbfb4">Held in memory, never saved to disk (Docker secrets)</p>
+</div>
+<div style="width:48px;height:24px;background:#8a7c74;clip-path:polygon(0 30%,60% 30%,60% 0,100% 50%,60% 100%,60% 70%,0 70%);flex-shrink:0"></div>
+<div style="flex:1;display:flex;flex-direction:column;gap:12px;background:#1a0b0b;border:2px solid #5a4212;border-radius:16px;padding:32px">
+<p style="font-size:24px;letter-spacing:4px;text-transform:uppercase;color:#f2b33d">Step 4</p>
+<h3 style="font-size:32px;font-weight:900;color:#efe2d6">Read, then gone</h3>
+<p style="font-size:24px;line-height:1.4;color:#cdbfb4">The bot reads it only when needed</p>
+</div>
+</div>
+<div style="display:flex;flex-direction:row;align-items:center;gap:24px;background:#1a0b0b;border:2px dashed #e8262b;border-radius:16px;padding:28px 40px">
+<span aria-hidden="true" style="color:#ff6b5e;width:48px;height:48px;font-size:44px;line-height:48px;text-align:center;flex-shrink:0">⚠</span>
+<p style="font-size:30px;line-height:1.4;color:#efe2d6"><span style="color:#ff6b5e">Never in plain settings (environment variables).</span> Anyone with server access can read them there.</p>
+</div>
+<div style="position:absolute;left:128px;bottom:64px;width:1664px;display:flex;flex-direction:row;justify-content:space-between">
+<p style="font-size:18px;letter-spacing:4px;text-transform:uppercase;color:#8a7c74">Stranger Things in Production</p>
+<p style="font-size:18px;color:#8a7c74">6</p>
+</div>
+<aside class="notes">Speech in the separate speech file.</aside>
+</section>
+
+<section id="observability" data-transition="fade" style="background:radial-gradient(ellipse at 50% 0%, #1f0909 0%, #0e0606 60%);color:#efe2d6;font-family:'Merriweather', Georgia, serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:48px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;letter-spacing:8px;text-transform:uppercase;color:#e8262b">Chapter Four · Observability</p>
+<h2 style="font-size:72px;font-weight:900;line-height:1.15;color:#160505;-webkit-text-stroke:2px #e8262b;text-shadow:0 0 12px rgba(232,38,43,0.8), 0 0 32px rgba(232,38,43,0.45)">The Mind Flayer</h2>
+<p style="font-size:32px;line-height:1.4;color:#cdbfb4">I could not see inside the bot, and what I could see I should not have kept.</p>
+</div>
+<div style="display:flex;flex-direction:row;gap:40px">
+<div style="flex:1;display:flex;flex-direction:column;gap:24px;background:#1a0b0b;border:2px solid #5a1a1a;border-radius:16px;padding:40px">
+<h3 style="font-size:36px;font-weight:900;color:#ff6b5e">What went wrong</h3>
+<ul style="font-size:30px;line-height:1.6;color:#efe2d6">
+<li>Logs filled my disk</li>
+<li>They stored what people typed</li>
+<li>Errors scrolled away before I could read them</li>
+</ul>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:24px;background:#1a0b0b;border:2px solid #5a4212;border-radius:16px;padding:40px">
+<h3 style="font-size:36px;font-weight:900;color:#f2b33d">The fix</h3>
+<ul style="font-size:30px;line-height:1.6;color:#efe2d6">
+<li>Track when and how long, not what was said</li>
+<li>Users see plain error messages</li>
+<li>A health check after every deploy</li>
+</ul>
+</div>
+</div>
+<div style="position:absolute;left:128px;bottom:64px;width:1664px;display:flex;flex-direction:row;justify-content:space-between">
+<p style="font-size:18px;letter-spacing:4px;text-transform:uppercase;color:#8a7c74">Stranger Things in Production</p>
+<p style="font-size:18px;color:#8a7c74">7</p>
+</div>
+<aside class="notes">Speech in the separate speech file.</aside>
+</section>
+
+
+<section id="lessons" data-transition="fade" style="background:radial-gradient(ellipse at 50% 0%, #1f0909 0%, #0e0606 60%);color:#efe2d6;font-family:'Merriweather', Georgia, serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:48px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;letter-spacing:8px;text-transform:uppercase;color:#e8262b">Should I stay or should I roll back?</p>
+<h2 style="font-size:72px;font-weight:900;line-height:1.15;color:#160505;-webkit-text-stroke:2px #e8262b;text-shadow:0 0 12px rgba(232,38,43,0.8), 0 0 32px rgba(232,38,43,0.45)">What the day job taught me, applied to a side project</h2>
+</div>
+<div style="display:flex;flex-direction:row;gap:40px">
+<div style="flex:1;display:flex;flex-direction:column;gap:20px;background:#1a0b0b;border:2px solid #3d1a1a;border-radius:16px;padding:40px">
+<p style="font-size:72px;font-weight:900;line-height:1.1;color:#160505;-webkit-text-stroke:2px #f2b33d">01</p>
+<h3 style="font-size:36px;font-weight:900;color:#efe2d6">Isolate every user</h3>
+<p style="font-size:28px;line-height:1.4;color:#cdbfb4">If an agent can run commands, give each user their own sandbox.</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:20px;background:#1a0b0b;border:2px solid #3d1a1a;border-radius:16px;padding:40px">
+<p style="font-size:72px;font-weight:900;line-height:1.1;color:#160505;-webkit-text-stroke:2px #f2b33d">02</p>
+<h3 style="font-size:36px;font-weight:900;color:#efe2d6">Plan your logs early</h3>
+<p style="font-size:28px;line-height:1.4;color:#cdbfb4">Decide what you keep, where it goes and how big it can get.</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:20px;background:#1a0b0b;border:2px solid #3d1a1a;border-radius:16px;padding:40px">
+<p style="font-size:72px;font-weight:900;line-height:1.1;color:#160505;-webkit-text-stroke:2px #f2b33d">03</p>
+<h3 style="font-size:36px;font-weight:900;color:#efe2d6">Treat every bot as public</h3>
+<p style="font-size:28px;line-height:1.4;color:#cdbfb4">Keep secrets out of code and environment variables from the start.</p>
+</div>
+</div>
+<p style="font-size:30px;font-style:italic;color:#cdbfb4">And it stayed cheap: under $3 every two months in beta, on a free model, Telegram and a small rented server.</p>
+<div style="position:absolute;left:128px;bottom:64px;width:1664px;display:flex;flex-direction:row;justify-content:space-between">
+<p style="font-size:18px;letter-spacing:4px;text-transform:uppercase;color:#8a7c74">Stranger Things in Production</p>
+<p style="font-size:18px;color:#8a7c74">8</p>
+</div>
+<aside class="notes">Speech in the separate speech file.</aside>
+</section>
+<section id="demo" data-transition="fade" style="background:radial-gradient(ellipse at 50% 50%, #7a0d10 0%, #340606 55%, #120303 100%);color:#efe2d6;font-family:Merriweather, Georgia, serif;padding:72px 128px 120px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px">
+<div style="display:flex;flex-direction:column;align-items:center;gap:12px">
+<p style="font-size:28px;letter-spacing:8px;text-transform:uppercase;color:#f2b33d">Your turn</p>
+<h1 style="font-size:120px;font-weight:900;line-height:1.1;letter-spacing:8px;white-space:nowrap;text-align:center;color:#1a0505;-webkit-text-stroke:4px #ff4a3d;text-shadow:0 0 20px rgba(255,74,61,0.9), 0 0 60px rgba(255,74,61,0.5)">TRY IT OUT</h1>
+<p style="font-size:40px;font-style:italic;text-align:center;color:#efe2d6">Scan it. Press Start. Ask it anything.</p>
+</div>
+<div style="display:flex;flex-direction:row;align-items:center;gap:80px">
+<div style="width:360px;height:360px;padding:16px;background:#efe2d6;border-radius:24px;box-shadow:0 0 50px rgba(255,74,61,0.55)"><svg style="width:100%;height:100%;display:block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 29 29" shape-rendering="crispEdges" class="segno"><path fill="#efe2d6" d="M0 0h29v29h-29z"/><path class="qrline" stroke="#160505" d="M2 2.5h7m2 0h1m1 0h2m2 0h1m2 0h7m-25 1h1m5 0h1m2 0h1m3 0h1m1 0h1m2 0h1m5 0h1m-25 1h1m1 0h3m1 0h1m4 0h2m1 0h1m1 0h1m1 0h1m1 0h3m1 0h1m-25 1h1m1 0h3m1 0h1m3 0h1m3 0h2m2 0h1m1 0h3m1 0h1m-25 1h1m1 0h3m1 0h1m5 0h2m1 0h2m1 0h1m1 0h3m1 0h1m-25 1h1m5 0h1m1 0h1m3 0h2m1 0h1m2 0h1m5 0h1m-25 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-14 1h2m2 0h1m-16 1h1m2 0h1m1 0h2m1 0h2m1 0h4m2 0h1m1 0h1m-20 1h1m1 0h2m1 0h1m1 0h4m2 0h2m1 0h4m4 0h1m-25 1h2m1 0h1m2 0h1m1 0h1m2 0h2m1 0h1m1 0h2m1 0h2m2 0h2m-24 1h1m1 0h3m2 0h2m3 0h4m1 0h1m1 0h1m-21 1h4m1 0h2m1 0h3m1 0h2m2 0h4m1 0h1m1 0h2m-20 1h1m1 0h6m4 0h3m1 0h2m1 0h1m-25 1h1m1 0h1m1 0h3m5 0h1m6 0h2m1 0h1m1 0h1m-24 1h1m3 0h1m3 0h2m1 0h3m1 0h1m3 0h1m2 0h1m-24 1h10m1 0h2m3 0h7m-15 1h1m4 0h4m3 0h2m2 0h1m-25 1h7m3 0h1m1 0h5m1 0h1m1 0h2m1 0h2m-25 1h1m5 0h1m1 0h1m2 0h1m4 0h1m3 0h4m-24 1h1m1 0h3m1 0h1m2 0h1m1 0h4m1 0h6m1 0h1m-24 1h1m1 0h3m1 0h1m1 0h1m1 0h2m4 0h1m2 0h4m-23 1h1m1 0h3m1 0h1m3 0h1m1 0h1m2 0h2m2 0h2m1 0h1m1 0h1m-25 1h1m5 0h1m3 0h1m1 0h2m1 0h3m3 0h1m-22 1h7m1 0h2m3 0h1m2 0h4m3 0h2"/></svg></div>
+<div style="display:flex;flex-direction:column;gap:22px;align-items:flex-start">
+<p style="font-size:52px;font-weight:900;color:#f2b33d">@getastrabot</p>
+<p style="font-size:26px;letter-spacing:4px;text-transform:uppercase;color:#c9a9a0">Not sure what to ask?</p>
+<p style="font-size:28px;color:#efe2d6;background:rgba(0,0,0,.35);border:2px solid #7a2a24;border-radius:999px;padding:12px 28px">Draft a polite email declining a meeting</p>
+<p style="font-size:28px;color:#efe2d6;background:rgba(0,0,0,.35);border:2px solid #7a2a24;border-radius:999px;padding:12px 28px">Explain what an API is, in simple words</p>
+<p style="font-size:28px;color:#efe2d6;background:rgba(0,0,0,.35);border:2px solid #7a2a24;border-radius:999px;padding:12px 28px">Plan a 3-day trip to anywhere</p>
+<p style="font-size:22px;font-style:italic;color:#c9a9a0">First reply takes a few seconds while your own sandbox starts.</p>
+</div>
+</div>
+<div style="display:flex;flex-direction:row;align-items:center;gap:20px">
+<p style="font-size:22px;letter-spacing:5px;text-transform:uppercase;font-weight:900;color:#1a0505;background:#f2b33d;border-radius:8px;padding:8px 16px">Coming soon</p>
+<p style="font-size:26px;color:#efe2d6;border:2px dashed #b9877c;border-radius:999px;padding:10px 24px">Draft and send emails with Gmail</p>
+<p style="font-size:26px;color:#efe2d6;border:2px dashed #b9877c;border-radius:999px;padding:10px 24px">Daily summary of inbox and calendar</p>
+</div>
+<p style="position:absolute;left:128px;bottom:56px;width:1664px;font-size:20px;letter-spacing:3px;text-align:center;color:#c9a9a0">github.com/madhaviswamy/PABot · linkedin.com/in/madhavi-swamy</p>
+<aside class="notes">Leave this up for the demo (3 minutes of play) and for questions. Backup recording ready.</aside>
+</section>
+
+
+</div>
+<div id="hint">← → or click to move · N for speaker notes · F for full screen</div>
+<script>
+  const slides = [...document.querySelectorAll('section')];
+  let i = Math.max(0, slides.findIndex(s => '#' + s.id === location.hash));
+  function show(n) {
+    i = Math.min(slides.length - 1, Math.max(0, n));
+    slides.forEach((s, k) => s.classList.toggle('active', k === i));
+    history.replaceState(null, '', '#' + slides[i].id);
+  }
+  function fit() {
+    const s = Math.min(innerWidth / 1920, innerHeight / 1080);
+    document.getElementById('stage').style.transform = `translate(-50%, -50%) scale(${s})`;
+  }
+  addEventListener('resize', fit);
+  addEventListener('keydown', e => {
+    if (['ArrowRight', 'PageDown', ' '].includes(e.key)) show(i + 1);
+    else if (['ArrowLeft', 'PageUp'].includes(e.key)) show(i - 1);
+    else if (e.key === 'Home') show(0);
+    else if (e.key === 'End') show(slides.length - 1);
+    else if (e.key.toLowerCase() === 'n') document.body.classList.toggle('show-notes');
+    else if (e.key.toLowerCase() === 'f') document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
+  });
+  addEventListener('click', e => show(e.clientX < innerWidth / 3 ? i - 1 : i + 1));
+  fit(); show(i);
+</script>
+</body>
+</html>
